@@ -22,107 +22,23 @@
 </script><script>window.Intl=window.Intl||{};Intl.t=function(s){return(Intl._locale&&Intl._locale[s])||s;};</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>هلا لايف - غرف صوتية</title>
+<title>هلا لايف - Hala Live</title>
 <style>
-*{box-sizing:border-box;font-family:system-ui}body{margin:0;background:#0f0f0f;color:#fff;padding:10px}
-.header{background:#1a1a1a;padding:15px;border-radius:15px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:22px;font-weight:bold;color:#ff3b6e}
-.btn{background:#ff3b6e;color:#fff;border:0;padding:12px 20px;border-radius:10px;font-weight:bold;width:100%;margin:8px 0}
-.btn2{background:#222;color:#fff;border:1px solid #333;padding:10px;border-radius:10px;margin:4px}
-.card{background:#1e1e1e;border-radius:12px;padding:12px;margin:10px 0;border:1px solid #333}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin:8px 0}
-#jitsi{width:100%;height:400px;border-radius:12px;overflow:hidden;background:#000;display:none;margin-top:10px}
-.gifts{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.gift{background:#222;border:1px solid #333;border-radius:10px;padding:8px 12px}
+*{box-sizing:border-box}
+body{margin:0;background:#0f0f0f;color:#fff;font-family:system-ui,Tahoma;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.box{background:linear-gradient(135deg,#1f1f1f,#2a2a2a);padding:30px;border-radius:20px;max-width:400px;width:100%;text-align:center;border:1px solid #333}
+h1{margin:0 0 10px;font-size:28px}
+p{color:#aaa;margin:0 0 20px}
+.btn{background:linear-gradient(90deg,#ff3b6e,#ff7a45);color:#fff;border:0;padding:14px 28px;border-radius:12px;font-size:18px;font-weight:bold;width:100%;cursor:pointer}
+.tag{margin-top:15px;font-size:12px;color:#666}
 </style>
 </head>
 <body>
-<div class="header"><div class="logo">هلا لايف 🔴</div><div id="user">زائر</div></div>
-
-<div id="loginBox" class="card">
-<h3>تسجيل الدخول برقم الهاتف</h3>
-<input id="phone" placeholder="رقم الهاتف 06...">
-<input id="name" placeholder="اسمك">
-<button class="btn" onclick="login()">دخول</button>
+<div class="box">
+<h1>هلا لايف 🔴</h1>
+<p>التطبيق خدام بلا Base44!</p>
+<button class="btn" onclick="this.textContent='مبروك! خدام ✅'">جربني الآن</button>
+<div class="tag">aboubakrbrahim05-del.github.io/Hala-live</div>
 </div>
-
-<div id="app" style="display:none">
-<div class="card">
-<input id="roomName" placeholder="اسم الغرفة الصوتية...">
-<button class="btn" onclick="createRoom()">+ إنشاء غرفة صوتية</button>
-</div>
-<div id="rooms"></div>
-<div id="jitsi"></div>
-<div id="giftBox" class="card" style="display:none">
-<h4>أرسل هدية 🎁</h4>
-<div class="gifts">
-<button class="gift" onclick="sendGift(5)">🌹 5</button>
-<button class="gift" onclick="sendGift(10)">❤️ 10</button>
-<button class="gift" onclick="sendGift(50)">🚗 50</button>
-<button class="gift" onclick="sendGift(100)">🦁 100</button>
-<button class="gift" onclick="sendGift(200)">🚀 200</button>
-<button class="gift" onclick="sendGift(500)">👑 500</button>
-</div>
-<div>رصيدك: <span id="myCoins">100</span> | ربح الهوست: <span id="hostEarn">0</span></div>
-</div>
-</div>
-
-<script src="https://meet.jit.si/external_api.js"></script>
-<script>
-let user=null,coins=100,earn=0,api=null,roomsData=JSON.parse(localStorage.getItem('hala_rooms')||'[]');
-function login(){
- let p=document.getElementById('phone').value, n=document.getElementById('name').value;
- if(!p||!n)return alert('كتب النمرة والسمية');
- user={phone:p,name:n};
- localStorage.setItem('hala_user',JSON.stringify(user));
- document.getElementById('user').innerText=n;
- document.getElementById('loginBox').style.display='none';
- document.getElementById('app').style.display='block';
- render();
-}
-function createRoom(){
- let rn=document.getElementById('roomName').value;
- if(!rn)return alert('كتب سمية الغرفة');
- let r={id:Date.now(),name:rn,host:user.name,hostPhone:user.phone,listeners:0};
- roomsData.unshift(r);
- localStorage.setItem('hala_rooms',JSON.stringify(roomsData));
- document.getElementById('roomName').value='';
- render();
-}
-function render(){
- let h='';
- roomsData.forEach(r=>{
-  h+=`<div class="card"><b>${r.name}</b><br><small>الهوست: ${r.host} - ${r.listeners} مستمع</small><br><button class="btn2" onclick="joinRoom('${r.id}','${r.name}')">دخول الغرفة 🎙️</button></div>`;
- });
- document.getElementById('rooms').innerHTML=h||'<div class=card>لا يوجد غرف - كن أول من ينشئ!</div>';
-}
-function joinRoom(id,name){
- document.getElementById('jitsi').style.display='block';
- document.getElementById('giftBox').style.display='block';
- if(api)api.dispose();
- let roomName='HalaLive_'+id;
- api=new JitsiMeetExternalAPI('meet.jit.si',{
-  roomName:roomName,
-  width:'100%',height:400,
-  parentNode:document.getElementById('jitsi'),
-  configOverwrite:{startWithVideoMuted:true,startAudioOnly:true},
-  interfaceConfigOverwrite:{TOOLBAR_BUTTONS:['microphone','hangup','chat']}
- });
- window.scrollTo(0,document.getElementById('jitsi').offsetTop);
-}
-function sendGift(v){
- if(coins<v)return alert('رصيدك غير كافي');
- coins-=v; earn+=v;
- let hostCut=Math.floor(v*0.7), platCut=v-hostCut;
- document.getElementById('myCoins').innerText=coins;
- document.getElementById('hostEarn').innerText=earn+' (70% للهوست '+Math.floor(earn*0.7)+')';
- alert('تم إرسال هدية '+v+' - الهوست ربح '+hostCut+' والمنصة '+platCut);
- let w=JSON.parse(localStorage.getItem('hala_wallet')||'{}');
- w[user.phone]=(w[user.phone]||0)+platCut;
- localStorage.setItem('hala_wallet',JSON.stringify(w));
-}
-let saved=localStorage.getItem('hala_user');
-if(saved){user=JSON.parse(saved);document.getElementById('user').innerText=user.name;document.getElementById('loginBox').style.display='none';document.getElementById('app').style.display='block';render();}
-</script>
 </body>
-  </html>
+</html>
