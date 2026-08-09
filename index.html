@@ -1,44 +1,21 @@
+
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head><!-- PLAYABLE_TOUCH_PATCH_V1 --><script>
-(function() {
-  if (window.__playableTouchPatchInstalled) return;
-  window.__playableTouchPatchInstalled = true;
-  var origAdd = EventTarget.prototype.addEventListener;
-  var blockedTypes = { touchstart: 1, touchmove: 1, wheel: 1 };
-  EventTarget.prototype.addEventListener = function(type, listener, options) {
-    if (blockedTypes[type]) {
-      if (options === undefined || options === null) {
-        options = { passive: true };
-      } else if (typeof options === 'boolean') {
-        options = { capture: options, passive: true };
-      } else {
-        options = Object.assign({}, options, { passive: true });
-      }
-    }
-    return origAdd.call(this, type, listener, options);
-  };
-})();
-</script><script>window.Intl=window.Intl||{};Intl.t=function(s){return(Intl._locale&&Intl._locale[s])||s;};</script>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>هلا لايف - Hala Live</title>
+<title>Hala Live</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0f0f0f;color:#fff;font-family:system-ui,Tahoma;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.box{background:linear-gradient(135deg,#1f1f1f,#2a2a2a);padding:30px;border-radius:20px;max-width:400px;width:100%;text-align:center;border:1px solid #333}
-h1{margin:0 0 10px;font-size:28px}
-p{color:#aaa;margin:0 0 20px}
-.btn{background:linear-gradient(90deg,#ff3b6e,#ff7a45);color:#fff;border:0;padding:14px 28px;border-radius:12px;font-size:18px;font-weight:bold;width:100%;cursor:pointer}
-.tag{margin-top:15px;font-size:12px;color:#666}
+body{margin:0;background:#0f0f0f;color:#fff;font-family:Arial;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#1e1e1e;padding:32px;border-radius:20px;max-width:380px;width:100%;text-align:center;border:1px solid #333}
+.btn{background:#ff3b6e;color:#fff;border:0;padding:14px 28px;border-radius:12px;font-size:18px;width:100%}
 </style>
 </head>
 <body>
-<div class="box">
-<h1>هلا لايف 🔴</h1>
-<p>التطبيق خدام بلا Base44!</p>
-<button class="btn" onclick="this.textContent='مبروك! خدام ✅'">جربني الآن</button>
-<div class="tag">aboubakrbrahim05-del.github.io/Hala-live</div>
+<div class="card">
+<h1>Hala Live 🔴</h1>
+<p>App is working without Base44!</p>
+<button class="btn" onclick="this.textContent='WORKING ✅'">Test Me</button>
 </div>
 </body>
 </html>
