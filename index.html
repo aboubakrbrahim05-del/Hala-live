@@ -1,111 +1,16 @@
-<!DOCTYPE html>
+سلام<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tango Live Plus</title>
+<title>Tango Live Plus PRO</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#0f0f14;color:#fff;padding-bottom:70px}
-.hd{position:sticky;top:0;z-index:10;background:#1a1a28;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid #2a2a3a}
-.logo{font-weight:900;background:linear-gradient(90deg,#ff2a6d,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:20px}
-.coin{background:#2a2a3a;padding:6px 12px;border-radius:20px;font-size:12px}
-.tabs{display:flex;gap:8px;padding:10px 16px;overflow-x:auto;background:#1a1a28}
-.tab{white-space:nowrap;padding:6px 14px;border-radius:20px;background:#2a2a3a;border:0;color:#aaa;font-size:13px;cursor:pointer}
+body{background:#0a0a12;color:#fff;overflow-x:hidden}
+.hd{position:sticky;top:0;z-index:30;background:#161626;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid #2a2a40}
+.logo{font-weight:900;font-size:20px;background:linear-gradient(90deg,#ff2a6d,#ffb800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.coin{background:#252538;padding:6px 12px;border-radius:20px;font-size:12px}
+.tabs{display:flex;gap:8px;padding:10px 16px;overflow-x:auto;background:#161626}
+.tab{white-space:nowrap;padding:7px 16px;border-radius:20px;background:#252538;border:0;color:#999;font-size:13px}
 .tab.on{background:#ff2a6d;color:#fff}
-.banner{margin:12px 16px;background:linear-gradient(135deg,#8b5cf6,#ec4899,#f59e0b);border-radius:18px;padding:18px;display:flex;justify-content:space-between;align-items:center}
-.rooms{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px}
-.room{background:#1e1e2e;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;border:1px solid #2a2a3a}
-.thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:45px;position:relative}
-.liveB{position:absolute;top:6px;left:6px;background:#ff2a5a;color:#fff;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:800}
-.view{position:absolute;bottom:6px;left:6px;background:#0009;padding:2px 6px;border-radius:10px;font-size:10px}
-.info{padding:8px}
-.name{font-size:13px;font-weight:700}
-.country{font-size:11px;color:#aaa}
-.btnLive{margin:12px;background:#f59e0b;color:#000;padding:13px;border-radius:14px;text-align:center;font-weight:900;border:0;width:calc(100% - 24px);cursor:pointer}
-#live{position:fixed;inset:0;background:#000;z-index:100;display:none;flex-direction:column}
-#live.on{display:flex}
-#live video{flex:1;object-fit:cover;width:100%}
-.topL{position:absolute;top:0;left:0;right:0;padding:12px;display:flex;justify-content:space-between;background:linear-gradient(#0009,transparent)}
-.botL{position:absolute;bottom:0;left:0;right:0;padding:10px;background:linear-gradient(transparent,#000c)}
-.gifts{display:flex;gap:6px;overflow-x:auto;padding:6px 0}
-.gift{background:#fff1;padding:6px 10px;border-radius:20px;font-size:12px;white-space:nowrap;border:1px solid #fff2;cursor:pointer}
-.actions{display:flex;gap:10px;justify-content:center;padding:10px}
-.circle{width:52px;height:52px;border-radius:50%;border:0;color:#fff;font-size:20px;cursor:pointer}
-.support{position:fixed;bottom:75px;left:14px;background:#25D366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;z-index:50;box-shadow:0 4px 12px #0008;text-decoration:none}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#1a1a28;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #2a2a3a;z-index:20}
-.nav div{text-align:center;font-size:11px;color:#888;cursor:pointer}
-.nav div.on{color:#ff2a6d}
-</style>
-</head>
-<body>
-<div class="hd"><div class="logo">Tango Live Plus</div><div class="coin">🪙 24,145</div></div>
-<div class="tabs">
-<button class="tab on" onclick="filter('all',this)">الكل</button>
-<button class="tab" onclick="filter('ma',this)">🇲🇦 مغربيات</button>
-<button class="tab" onclick="filter('ar',this)">🇸🇦 عرب</button>
-<button class="tab" onclick="filter('eu',this)">🇪🇸 أجانب</button>
-<button class="tab" onclick="filter('new',this)">✨ جدد</button>
-</div>
-<div class="banner"><div><h3>افتح لايف واربح</h3><p style="font-size:12px">1000 مشاهدة = 50 درهم</p></div><div style="font-size:28px">🎥</div></div>
-<button class="btnLive" onclick="openLive()">🔴 ابدأ البث المباشر الآن</button>
-<div id="rooms" class="rooms"></div>
-<div id="live">
-<video id="v" autoplay playsinline muted></video>
-<div class="topL">
-<button onclick="closeLive()" style="background:#222;color:#fff;border:0;padding:7px 14px;border-radius:20px">✕</button>
-<div><span style="background:#ff2a5a;padding:5px 10px;border-radius:15px;font-size:11px">🔴 LIVE 1.2k</span></div>
-</div>
-<div class="botL">
-<div id="chat" style="font-size:12px;max-height:70px;overflow:hidden;margin-bottom:6px;line-height:1.6"></div>
-<div class="gifts">
-<span class="gift" onclick="send('🌹')">🌹 10</span><span class="gift" onclick="send('❤️')">❤️ 50</span><span class="gift" onclick="send('💎')">💎 100</span><span class="gift" onclick="send('👑')">👑 500</span><span class="gift" onclick="send('🚀')">🚀 1000</span>
-</div>
-<div class="actions">
-<button class="circle" style="background:#333" onclick="mic()">🎤</button>
-<button class="circle" style="background:#ff2a5a" onclick="closeLive()">📞</button>
-<button class="circle" style="background:#333" onclick="cam()">📹</button>
-<button class="circle" style="background:#333" onclick="support()">💬</button>
-</div>
-</div>
-</div>
-<a class="support" href="https://wa.me/212711039826?text=سلام بغيت الدعم فتطبيق Tango Live Plus" target="_blank">💬</a>
-<div class="nav">
-<div class="on">🏠<br>الرئيسية</div><div onclick="openLive()">🔴<br>لايف</div><div onclick="support()">💬<br>الدعم</div><div>👤<br>حسابي</div>
-</div>
-<script>
-const MY_NUMBER = "212711039826";
-const allRooms=[
-{n:'Lina 🇲🇦',c:'ma',e:'💃',v:'1.2k',city:'الدار البيضاء'},
-{n:'Sofia 🇪🇸',c:'eu',e:'👩‍🎤',v:'3.4k',city:'مدريد'},
-{n:'Amina',c:'ma',e:'👩',v:'890',city:'مراكش'},
-{n:'Noura',c:'ar',e:'🧕',v:'5.6k',city:'دبي'},
-{n:'Sara 🇲🇦',c:'ma',e:'👧',v:'2.1k',city:'فاس'},
-{n:'Hana',c:'ar',e:'💃',v:'4.3k',city:'الرياض'},
-{n:'Mia 🇫🇷',c:'eu',e:'👩',v:'1.8k',city:'باريس'},
-{n:'Khadija',c:'ma',e:'🧕',v:'3.2k',city:'طنجة'},
-{n:'Lara',c:'new',e:'💃',v:'120',city:'جديدة'},
-{n:'Yasmin',c:'new',e:'👩‍🦰',v:'89',city:'جديدة'}
-];
-let cur='all';
-function render(){
-const f = cur==='all' ? allRooms : allRooms.filter(r=>r.c===cur);
-document.getElementById('rooms').innerHTML = f.map(r=>`<div class="room" onclick="openLive()"><div class="thumb">${r.e}<span class="liveB">LIVE</span><span class="view">👁️ ${r.v}</span></div><div class="info"><div class="name">${r.n}</div><div class="country">📍 ${r.city}</div></div></div>`).join('');
-}
-function filter(cat,btn){cur=cat;document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render();}
-let stream=null;
-const msgs=['Simo: واو زوينة ❤️','Ali: تبارك الله','Hassan: ممكن نهديك؟','Kamal: فينك؟','Amine: منورة 🌹'];
-async function openLive(){
-document.getElementById('live').classList.add('on');
-let i=0;setInterval(()=>{const ch=document.getElementById('chat');if(!ch||!document.getElementById('live').classList.contains('on'))return;ch.innerHTML+=`<div>${msgs[i%msgs.length]}</div>`;i++;if(ch.children.length>4)ch.removeChild(ch.firstChild);},1500);
-try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});document.getElementById('v').srcObject=stream;}catch(e){alert('سمح بالكاميرا: '+e.message)}
-}
-function closeLive(){document.getElementById('live').classList.remove('on');if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}
-function mic(){if(!stream)return;const t=stream.getAudioTracks()[0];if(t){t.enabled=!t.enabled}}
-function cam(){if(!stream)return;const t=stream.getVideoTracks()[0];if(t){t.enabled=!t.enabled}}
-function send(g){alert('شكرا! هديت '+g+' - الدعم غادي يتواصل معاك على واتساب: 0711039826')}
-function support(){window.open(`https://wa.me/${MY_NUMBER}?text=سلام بغيت الدعم`,'_blank')}
-render();
-</script>
-</body>
-       </html>
+.banner{margin:12px 16px;background:linear-gradient(135deg,#7c بغيت الدعم
