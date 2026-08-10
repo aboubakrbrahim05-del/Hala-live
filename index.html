@@ -3,109 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Tango Live - V5 Clone Original</title>
+<title>Tango Live V5 - النسخة الكاملة</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,system-ui}
-body{background:#f5f5f7;color:#111;padding-bottom:78px}
-.topStatus{background:#fff;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;border-bottom:1px solid #eee}
-.topTabs{background:#fff;display:flex;padding:8px 12px;gap:8px;position:sticky;top:0;z-index:20}
-.tabPill{padding:8px 18px;border-radius:20px;background:#f0f0f0;border:0;font-size:13px;font-weight:700;color:#777}
-.tabPill.on{background:#111;color:#fff}
-.sectionHead{display:flex;justify-content:space-between;align-items:center;padding:14px 14px 8px;background:#fff;margin-top:8px}
-.roomsGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 10px;background:#fff}
-.roomCard{border-radius:16px;overflow:hidden;position:relative;height:168px;background:#000;cursor:pointer}
-.roomTop{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center}
-.gameBadge{background:#fff;border-radius:8px;padding:3px 6px;font-size:11px;font-weight:800}
-.occupancy{background:#0008;color:#fff;padding:3px 8px;border-radius:12px;font-size:12px;font-weight:700}
-.roomBottom{position:absolute;bottom:0;left:0;right:0;padding:8px;background:linear-gradient(0deg,#000c,transparent);color:#fff}
-.roomName{font-size:13px;font-weight:800}
-.roomMeta{font-size:11px;display:flex;justify-content:space-between;margin-top:2px}
-.bottomNav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:8px 0 6px;z-index:40}
-.navItem{text-align:center;font-size:10px;color:#999;cursor:pointer;position:relative}
-.navItem.on{color:#111}
-.navItem .ico{font-size:22px;display:block;margin-bottom:2px}
-#livePage{position:fixed;inset:0;background:#000;z-index:100;display:none;flex-direction:column}
-#livePage.on{display:flex}
-.gLive{flex:0 0 auto;background:#1e1e36;border:1px solid #2a2a40;border-radius:14px;padding:6px 10px;text-align:center;cursor:pointer;min-width:54px}
-.liveControls{display:flex;justify-content:space-around;padding:10px;background:#111;border-top:1px solid #222}
-.lcBtn{width:48px;height:48px;border-radius:50%;border:0;font-size:20px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;background:#222}
-.lcBtn.gift{background:#fff;color:#000;width:56px;height:56px;border:2px solid #ffb800}
-.lcBtn.mic{background:#ff2d8a}
-.lcBtn.leave{background:#333}
-#shopPage{position:fixed;inset:0;background:#fff;z-index:90;display:none;overflow-y:auto;padding-bottom:80px}
-#shopPage.on{display:block}
-.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 12px}
-.pkg{background:#fff;border:1px solid #eee;border-radius:16px;padding:12px;text-align:center;position:relative}
-.pkg.best{border-color:#ffb800}
-.pkg.coins{font-size:22px;font-weight:900}
-.pkg.extra{font-size:11px;color:#ff2d8a;font-weight:700}
-.pkg.img{font-size:40px;margin:8px 0}
-.pkg.price{background:#f5f5f7;padding:6px;border-radius:10px;font-size:13px;font-weight:700;margin-top:6px}
-#authPage{position:fixed;inset:0;background:#fff;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
-#authPage.off{display:none!important}
-.authLogo{font-size:34px;font-weight:900;background:linear-gradient(90deg,#ff2d8a,#ffb800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
-.btnAuth{width:100%;max-width:320px;padding:13px;border-radius:14px;border:0;font-weight:800;font-size:14px;cursor:pointer;margin-bottom:9px;display:flex;align-items:center;justify-content:center;gap:8px}
-.btnFB{background:#1877F2;color:#fff}.btnGmail{background:#111;color:#fff}.btnPhone{background:#f0f0f0;color:#111}.btnGuest{background:transparent;color:#999;border:1px dashed #ccc}
-.inputGroup{margin-bottom:10px;width:100%;max-width:320px}.inputGroup input{width:100%;background:#f5f5f7;border:1px solid #eee;padding:11px 13px;border-radius:12px;font-size:14px}
-.btnSubmit{width:100%;max-width:320px;background:#111;color:#fff;border:0;padding:12px;border-radius:12px;font-weight:800;cursor:pointer}
-.fbLoading{display:none;text-align:center;padding:18px}.fbLoading.on{display:block}
+*{box-sizing:border-box;font-family:'Segoe UI',system-ui}
+body{margin:0;background:#0c0c14;color:#fff;min-height:100vh}
+.top{padding:18px;text-align:center;background:linear-gradient(135deg,#6a11cb 0%,#2575fc 100%);position:sticky;top:0;z-index:10}
+.top h2{margin:0 0 5px 0}
+.card{max-width:400px;margin:25px auto;background:#1a1a2e;padding:24px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.6);border:1px solid #2a2a40}
+input{width:100%;padding:12px 14px;margin:7px 0;border-radius:10px;border:1px solid #333;background:#252540;color:#fff;outline:none}
+input:focus{border-color:#6a11cb}
+.btn{width:100%;padding:12px;border:0;border-radius:10px;font-weight:700;cursor:pointer;margin-top:8px;transition:.2s}
+.btn:active{transform:scale(.98)}
+.btn-main{background:linear-gradient(90deg,#6a11cb,#2575fc);color:#fff}
+.btn-fb{background:#1877f2;color:#fff}
+.btn-gm{background:#fff;color:#111}
+.btn-phone{background:#00c851;color:#fff}
+.btn-dark{background:#2a2a44;color:#fff;border:1px solid #3a3a5a}
+.rooms{display:none;max-width:500px;margin:0 auto;padding:12px;padding-bottom:90px}
+.room-list-item{background:#1e1e38;border-radius:14px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;border:1px solid #2c2c4a;cursor:pointer}
+.room-list-item:hover{background:#25254a}
+.badge{background:#00c851;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.badge-hot{background:#ff1744}
+.room-view{display:none;max-width:500px;margin:0 auto;height:100vh;flex-direction:column;background:#0c0c14}
+.room-header{padding:12px;background:#1a1a2e;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a2a40}
+.seats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:16px;overflow-y:auto}
+.seat-box{background:#1e1e38;border-radius:16px;padding:10px;text-align:center;border:2px solid #2a2a40;position:relative;min-height:95px;cursor:pointer}
+.seat-box.mine{border-color:#6a11cb;box-shadow:0 0 15px rgba(106,17,203,.4)}
+.seat-box.occupied{border-color:#3a3a5a}
+.avatar{width:52px;height:52px;border-radius:50%;margin:0 auto 6px;background:linear-gradient(135deg,#6a11cb,#2575fc);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;position:relative}
+.avatar.muted::after{content:'🔇';position:absolute;bottom:-4px;right:-4px;background:#111;border-radius:50%;font-size:14px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;border:1px solid #444}
+.avatar.speaking{box-shadow:0 0 0 3px #00e676;animation:pulse 1s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 3px #00e676}50%{box-shadow:0 0 0 6px rgba(0,230,118,.3)}100%{box-shadow:0 0 0 3px #00e676}}
+.seat-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seat-num{position:absolute;top:4px;left:6px;font-size:10px;color:#888}
+.chat-box{flex:1;background:#12121f;overflow-y:auto;padding:10px;border-top:1px solid #222}
+.msg{margin:6px 0;font-size:13px;line-height:1.4}
+.msg b{color:#8b6cff}
+.msg.gift{background:linear-gradient(90deg,rgba(106,17,203,.2),transparent);padding:6px 8px;border-radius:8px;border-right:3px solid #6a11cb}
+.controls{padding:10px;background:#1a1a2e;display:flex;gap:8px;align-items:center;border-top:1px solid #2a2a40}
+.controls input{flex:1;margin:0}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:0;background:#2a2a44;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.icon-btn.mic-on{background:#00c851}
+.icon-btn.mic-off{background:#ff1744}
+.gifts-bar{display:flex;gap:8px;padding:8px;background:#1a1a2e;overflow-x:auto;border-top:1px solid #2a2a40}
+.gift-item{background:#252540;border-radius:10px;padding:6px 12px;cursor:pointer;white-space:nowrap;border:1px solid #333}
+.gift-item:hover{border-color:#6a11cb}
 </style>
 </head>
 <body>
-<div id="authPage">
-<div class="authLogo">Tango Live</div>
-<div style="color:#999;font-size:12px;margin-bottom:18px">V5 Clone Original</div>
-<div style="width:100%;max-width:320px" id="mainAuthBtns">
-<button class="btnAuth btnFB" onclick="loginFB()">📘 Facebook</button>
-<button class="btnAuth btnGmail" onclick="showGmail()">📧 Gmail</button>
-<button class="btnAuth btnPhone" onclick="showPhone()">📱 رقم الهاتف</button>
-<button class="btnAuth btnGuest" onclick="loginGuest()">👤 دخول كضيف</button>
+<div class="top">
+<h2>🎙️ Tango Live V5</h2>
+<p style="margin:0;opacity:.9;font-size:13px" id="topSub">تسجيل دخول - Facebook / Gmail / رقم الهاتف</p>
 </div>
-<div class="fbLoading" id="fbLoad"><div style="font-size:40px">⏳</div><div id="fbText">جاري الاتصال...</div></div>
-<div id="gmailBox" style="display:none;width:100%;max-width:320px"><div class="inputGroup"><input id="gmailInput" type="email" placeholder="example@gmail.com"></div><div class="inputGroup"><input id="gmailName" type="text" placeholder="إسمك"></div><button class="btnSubmit" onclick="loginGmail()">دخول ✅</button><button style="width:100%;background:transparent;border:0;color:#999;padding:8px;margin-top:6px" onclick="backMain()">← رجوع</button></div>
-<div id="phoneBox" style="display:none;width:100%;max-width:320px"><div class="inputGroup"><input id="phoneInput" type="tel" placeholder="0711039826"></div><div class="inputGroup" id="otpGroup" style="display:none"><input id="otpInput" type="text" placeholder="كود 1234"></div><button class="btnSubmit" id="phoneBtn" onclick="loginPhone()">إرسال الكود 📩</button><button style="width:100%;background:transparent;border:0;color:#999;padding:8px;margin-top:6px" onclick="backMain()">← رجوع</button></div>
+
+<div id="auth" class="card">
+<h3 style="text-align:center;margin-top:0">إنشاء حساب جديد</h3>
+<input id="name" placeholder="الإسم الكامل">
+<input id="email" type="email" placeholder="البريد الإلكتروني">
+<input id="phone" type="tel" placeholder="رقم الهاتف +212">
+<input id="pass" type="password" placeholder="كلمة السر">
+<button class="btn btn-main" onclick="register()">تسجيل حساب جديد</button>
+<div style="text-align:center;margin:14px 0;opacity:.6">—— أو ——</div>
+<button class="btn btn-fb" onclick="loginSocial('Facebook')">🔵 دخول بـ Facebook</button>
+<button class="btn btn-gm" onclick="loginSocial('Gmail')">🔴 دخول بـ Gmail</button>
+<button class="btn btn-phone" onclick="loginPhone()">📱 دخول برقم الهاتف</button>
+<p id="msg" style="text-align:center;color:#00ff88;margin-top:10px"></p>
 </div>
-<div class="topStatus"><span>04:28 📶</span><span>🔋</span></div>
-<div class="topTabs">
-<button class="tabPill on" onclick="switchTab('voice',this)">🎤 الصوت</button>
-<button class="tabPill" onclick="switchTab('match',this)">❤️ Match</button>
-<button class="tabPill" onclick="openShop()">💰 العملات</button>
+
+<div id="rooms" class="rooms">
+<h3>👋 مرحبا <span id="uname"></span></h3>
+<div id="roomsList"></div>
+<button class="btn btn-dark" onclick="logout()" style="margin-top:15px">تسجيل خروج</button>
 </div>
-<div class="sectionHead"><h3>🎙️ كل الصوت</h3></div>
-<div class="roomsGrid" id="voiceRooms"></div>
-<div class="sectionHead"><h3>🔥 شائع</h3></div>
-<div class="roomsGrid" id="popularRooms"></div>
-<div class="sectionHead"><h3>🎮 اللاعبون</h3></div>
-<div class="roomsGrid" id="playersRooms"></div>
-<div class="bottomNav">
-<div class="navItem" onclick="openShop()"><span class="ico">🗨️</span>الدردشات</div>
-<div class="navItem on"><span class="ico">🪙</span>العملات</div>
-<div class="navItem"><span class="ico">🔍</span>استكشاف</div>
-<div class="navItem"><span class="ico">👥</span>متابعة</div>
-<div class="navItem" onclick="logout()"><span class="ico">👤</span>أنا</div>
-</div>
-<div id="audioPage" style="position:fixed;inset:0;background:#f5f5f7;z-index:95;display:none;flex-direction:column">
-<div style="background:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee">
-<button onclick="closeAudio()" style="background:#f0f0f0;border:0;padding:6px 12px;border-radius:12px">‹ رجوع</button>
-<div style="font-weight:800">غرفة صوتية 15 كرسي</div>
-<button onclick="openGifts()" style="background:#111;color:#fff;border:0;padding:6px 12px;border-radius:12px">🎁 هدايا</button>
-</div>
-<div style="flex:1;padding:12px;overflow-y:auto"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px" id="chairsGrid"></div></div>
-<div style="display:flex;gap:8px;padding:8px;background:linear-gradient(180deg,#1a0a2e,#0a0a12)" id="giftBarAudio"></div>
-<div style="display:flex;justify-content:space-around;padding:10px;background:#fff;border-top:1px solid #eee">
-<button class="lcBtn" style="background:#f0f0f0;color:#111" onclick="toggleMicAudio()">🎤</button>
-<button class="lcBtn" style="background:#111;color:#fff" onclick="takeRandomChair()">🪑</button>
-<button class="lcBtn gift" onclick="openGifts()">🎁</button>
-<button class="lcBtn leave" onclick="closeAudio()">✕</button>
+
+<div id="roomView" class="room-view">
+<div class="room-header">
+<button class="icon-btn" onclick="leaveRoom()">⬅️</button>
+<div><b id="currentRoomName">غرفة النجوم</b><br><span style="font-size:12px;opacity:.7" id="onlineCount">12 متصل • 15 كرسي</span></div>
+<div style="display:flex;gap:6px">
+<button class="icon-btn" id="micBtn" onclick="toggleMic()">🎤</button>
+<button class="icon-btn" onclick="toggleGiftBar()">🎁</button>
 </div>
 </div>
-<div id="shopPage"><div style="display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid #eee"><div style="font-weight:800">🎁 المتجر</div><div>🟡 0</div></div><div class="packages" id="packages"></div><div style="padding:12px"><button onclick="showHome()" style="width:100%;background:#111;color:#fff;border:0;padding:12px;border-radius:12px;font-weight:800">رجوع للرئيسية</button></div></div>
-<div id="giftModal" style="position:fixed;inset:0;background:#000a;z-index:200;display:none;flex-direction:column;justify-content:flex-end" onclick="if(event.target===this)closeGifts()"><div style="background:#111;border-radius:20px 20px 0 0;max-height:80vh"><div style="display:flex;justify-content:space-between;padding:12px;color:#fff"><b>🎁 الهدايا</b><button onclick="closeGifts()" style="background:#222;color:#fff;border:0;padding:5px 11px;border-radius:12px">✕</button></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px" id="giftGrid"></div></div></div>
+
+<div class="seats-grid" id="seatsGrid"></div>
+
+<div class="gifts-bar" id="giftsBar" style="display:none">
+<div class="gift-item" onclick="sendGift('🌹 وردة',50)">🌹 وردة 50</div>
+<div class="gift-item" onclick="sendGift('❤️ قلب',100)">❤️ قلب 100</div>
+<div class="gift-item" onclick="sendGift('🏆 كأس',500)">🏆 كأس 500</div>
+<div class="gift-item" onclick="sendGift('🚀 صاروخ',1000)">🚀 صاروخ 1000</div>
+<div class="gift-item" onclick="sendGift('👑 تاج',5000)">👑 تاج 5000</div>
+</div>
+
+<div class="chat-box" id="chatBox"></div>
+
+<div class="controls">
+<input id="chatInput" placeholder="كتب رسالة..." onkeydown="if(event.key==='Enter')sendMsg()">
+<button class="btn btn-main" style="width:70px;margin:0" onclick="sendMsg()">إرسال</button>
+</div>
+</div>
+
 <script>
-let currentUser=null,micOn=true,myChair=1,otpSent=false;
-function checkAuth(){try{let s=localStorage.getItem('tango_v5');if(s){currentUser=JSON.parse(s);showApp();}}catch(e){}}
-function loginFB(){document.getElementById('mainAuthBtns').style.display='none';document.getElementById('fbLoad').classList.add('on');setTimeout(()=>{currentUser={name:'Aboubakr'};localStorage.setItem('tango_v5',JSON.stringify(currentUser));showApp();},1500);}
-function loginGuest(){currentUser={name:'ضيف'};localStorage.setItem('tango_v5',JSON.stringify(currentUser));showApp();}
-function showGmail(){document.getElementById('mainAuthBtns').style.display='none';document.getElementById('gmailBox').style.display='block';}
-function showPhone(){document.getElementById('mainAuthBtns').style.display='none';document.getElementById('phoneBox').style.display='block';}
-function backMain(){document.getElementById('mainAuthBtns').style.display='block';document.getElementById('gmailBox').style.display='none';document.getElementById('phoneBox').style.display='none';document.getElement
+let currentUser = null;
+let currentRoom = null;
+let mySeat = null;
+let micOn = true;
+let coins = 10000;
+
+const fakeUsers = [
+{name:'سلمى',color:'#e91e63'},{name:'أمين',color:'#2196f3'},{name:'نور',color:'#9c27b0'},
+{name:'يوسف',color:'#4caf50'},{name:'ليلى',color:'#ff9800'},{name:'عمر',color:'#607d8b'},
+{name:'سارة',color:'#f44336'},{name:'كريم',color:'#009688'},{name:'هدى',color:'#795548'},
+{name:'رشيد',color:'#3f51b5'},{name:'مريم',color:'#e040fb'},{name:'حمزة',color:'#00bcd4'},
+{name:'دنيا',color:'#ff4081'},{name:'بلال',color:'#8bc34a'}
+];
+
+const roomsData = [
+{ id:1, name:'🌟 غرفة النجوم', users:12, hot:true },
+{ id:2, name:'🎧 غرفة السهر', users:8, hot:false },
+{ id:3, name:'😂 غرفة الضحك', users:15, hot:true },
+{ id:4, name:'🎵 غرفة الطرب', users:5, hot:false },
+{ id:5, name:'💬 غرفة الدردشة', users:20, hot:true },
+{ id:6, name:'🔥 غرفة الهوت', users:18, hot:true }
+];
+
+function saveUser(u){ localStorage.setItem('tango_user', JSON.stringify(u)); }
+function loadUser(){ try{ return JSON.parse(localStorage.getItem('tango_user')); }catch{return null} }
+
+function register(){
+ const n=document.getElementById('name').value.trim();
+ const e=document.getElementById('email').value.trim();
+ const p=document.getElementById('phone').value.trim();
+ const pass=document.getElementById('pass').value.trim();
+ if(!n||!e||!p||!pass){ alert('عمر جميع الخانات'); return; }
+ currentUser={name:n,email:e,phone:p,initial:n[0].toUpperCase()};
+ saveUser(currentUser);
+ goRooms();
+}
+function loginSocial(type){
+ const n = type==='Facebook'? 'Brahim - Facebook' : 'Brahim - Gmail';
+ currentUser={name:n,email:'user@'+type+'.com',phone:'+2126',initial:'B',provider:type};
+ saveUser(currentUser);
+ document.getElementById('msg').innerText='تم الدخول بـ '+type+' ✅';
+ setTimeout(goRooms,600);
+}
+function loginPhone(){
+ let ph=document.getElementById('phone').value || '+212600000000';
+ if(ph.length<8){ alert('دخل نمرة صحيحة'); return; }
+ const code=prompt('كود SMS هو 1234 - كتبو هنا:');
+ if(!code) return;
+ currentUser={name:'مستخدم '+ph.slice(-4),phone:ph,initial:'م',provider:'Phone'};
+ saveUser(currentUser);
+ goRooms();
+}
+function goRooms(){
+ const u=loadUser();
+ if(!u) return;
+ currentUser=u;
+ document.getElementById('auth').style.display='none';
+ document.getElementById('roomView').style.display='none';
+ document.getElementById('rooms').style.display='block';
+ document.getElementById('uname').innerText=u.name;
+ document.getElementById('topSub').innerText='إختار الغرفة - '+coins+' Coins 💰';
+ renderRooms();
+}
+function renderRooms(){
+ const list=document.getElementById('roomsList');
+ list.innerHTML='';
+ roomsData.forEach(r=>{
+   const d=document.createElement('div');
+   d.className='room-list-item';
+   d.innerHTML=`<div><b>${r.name}</b><br><span style="font-size:12px;opacity:.7">${r.users} شخص متصل</span></div><span class="badge ${r.hot?'badge-hot':''}">${r.hot?'🔥 مباشر':'مباشر'}</span>`;
+   d.onclick=()=>enterRoom(r);
+   list.appendChild(d);
+ });
+}
+function enterRoom(r){
+ currentRoom=r;
+ mySeat=null;
+ document.getElementById('rooms').style.display='none';
+ document.getElementById('roomView').style.display='flex';
+ document.getElementById('currentRoomName').innerText=r.name;
+ document.getElementById('onlineCount').innerText=r.users+' متصل • 15 كرسي • 💰 '+coins;
+ document.getElementById('chatBox').innerHTML=`<div class="msg"><b>النظام:</b> مرحبا بك في ${r.name} 🎉</div>`;
+ renderSeats();
+}
+function leaveRoom(){
+ document.getElementById('roomView').style.display='none';
+ document.getElementById('rooms').style.display='block';
+ mySeat=null;
+}
+function renderSeats(){
+ const grid
