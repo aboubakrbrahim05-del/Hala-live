@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Tango Live - V5 Clone Original</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,system-ui}
+body{background:#f5f5f7;color:#111;padding-bottom:78px}
+.topStatus{background:#fff;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px;border-bottom:1px solid #eee}
+.topTabs{background:#fff;display:flex;padding:8px 12px;gap:8px;position:sticky;top:0;z-index:20}
+.tabPill{padding:8px 18px;border-radius:20px;background:#f0f0f0;border:0;font-size:13px;font-weight:700;color:#777}
+.tabPill.on{background:#111;color:#fff}
+.sectionHead{display:flex;justify-content:space-between;align-items:center;padding:14px 14px 8px;background:#fff;margin-top:8px}
+.roomsGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 10px;background:#fff}
+.roomCard{border-radius:16px;overflow:hidden;position:relative;height:168px;background:#000;cursor:pointer}
+.roomTop{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center}
+.gameBadge{background:#fff;border-radius:8px;padding:3px 6px;font-size:11px;font-weight:800}
+.occupancy{background:#0008;color:#fff;padding:3px 8px;border-radius:12px;font-size:12px;font-weight:700}
+.roomBottom{position:absolute;bottom:0;left:0;right:0;padding:8px;background:linear-gradient(0deg,#000c,transparent);color:#fff}
+.roomName{font-size:13px;font-weight:800}
+.roomMeta{font-size:11px;display:flex;justify-content:space-between;margin-top:2px}
+.bottomNav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:8px 0 6px;z-index:40}
+.navItem{text-align:center;font-size:10px;color:#999;cursor:pointer;position:relative}
+.navItem.on{color:#111}
+.navItem .ico{font-size:22px;display:block;margin-bottom:2px}
+#livePage{position:fixed;inset:0;background:#000;z-index:100;display:none;flex-direction:column}
+#livePage.on{display:flex}
+.gLive{flex:0 0 auto;background:#1e1e36;border:1px solid #2a2a40;border-radius:14px;padding:6px 10px;text-align:center;cursor:pointer;min-width:54px}
+.liveControls{display:flex;justify-content:space-around;padding:10px;background:#111;border-top:1px solid #222}
+.lcBtn{width:48px;height:48px;border-radius:50%;border:0;font-size:20px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;background:#222}
+.lcBtn.gift{background:#fff;color:#000;width:56px;height:56px;border:2px solid #ffb800}
+.lcBtn.mic{background:#ff2d8a}
+.lcBtn.leave{background:#333}
+#shopPage{position:fixed;inset:0;background:#fff;z-index:90;display:none;overflow-y:auto;padding-bottom:80px}
+#shopPage.on{display:block}
+.packages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 12px}
+.pkg{background:#fff;border:1px solid #eee;border-radius:16px;padding:12px;text-align:center;position:relative}
+.pkg.best{border-color:#ffb800}
+.pkg.coins{font-size:22px;font-weight:900}
+.pkg.extra{font-size:11px;color:#ff2d8a;font-weight:700}
+.pkg.img{font-size:40px;margin:8px 0}
+.pkg.price{background:#f5f5f7;padding:6px;border-radius:10px;font-size:13px;font-weight:700;margin-top:6px}
+#authPage{position:fixed;inset:0;background:#fff;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#authPage.off{display:none!important}
+.authLogo{font-size:34px;font-weight:900;background:linear-gradient(90deg,#ff2d8a,#ffb800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.btnAuth{width:100%;max-width:320px;padding:13px;border-radius:14px;border:0;font-weight:800;font-size:14px;cursor:pointer;margin-bottom:9px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btnFB{background:#1877F2;color:#fff}.btnGmail{background:#111;color:#fff}.btnPhone{background:#f0f0f0;color:#111}.btnGuest{background:transparent;color:#999;border:1px dashed #ccc}
+.inputGroup{margin-bottom:10px;width:100%;max-width:320px}.inputGroup input{width:100%;background:#f5f5f7;border:1px solid #eee;padding:11px 13px;border-radius:12px;font-size:14px}
+.btnSubmit{width:100%;max-width:320px;background:#111;color:#fff;border:0;padding:12px;border-radius:12px;font-weight:800;cursor:pointer}
+.fbLoading{display:none;text-align:center;padding:18px}.fbLoading.on{display:block}
+</style>
+</head>
+<body>
+<div id="authPage">
+<div class="authLogo">Tango Live</div>
+<div style="color:#999;font-size:12px;margin-bottom:18px">V5 Clone Original</div>
+<div style="width:100%;max-width:320px" id="mainAuthBtns">
+<button class="btnAuth btnFB" onclick="loginFB()">📘 Facebook</button>
+<button class="btnAuth btnGmail" onclick="showGmail()">📧 Gmail</button>
+<button class="btnAuth btnPhone" onclick="showPhone()">📱 رقم الهاتف</button>
+<button class="btnAuth btnGuest" onclick="loginGuest()">👤 دخول كضيف</button>
+</div>
+<div class="fbLoading" id="fbLoad"><div style="font-size:40px">⏳</div><div id="fbText">جاري الاتصال...</div></div>
+<div id="gmailBox" style="display:none;width:100%;max-width:320px"><div class="inputGroup"><input id="gmailInput" type="email" placeholder="example@gmail.com"></div><div class="inputGroup"><input id="gmailName" type="text" placeholder="إسمك"></div><button class="btnSubmit" onclick="loginGmail()">دخول ✅</button><button style="width:100%;background:transparent;border:0;color:#999;padding:8px;margin-top:6px" onclick="backMain()">← رجوع</button></div>
+<div id="phoneBox" style="display:none;width:100%;max-width:320px"><div class="inputGroup"><input id="phoneInput" type="tel" placeholder="0711039826"></div><div class="inputGroup" id="otpGroup" style="display:none"><input id="otpInput" type="text" placeholder="كود 1234"></div><button class="btnSubmit" id="phoneBtn" onclick="loginPhone()">إرسال الكود 📩</button><button style="width:100%;background:transparent;border:0;color:#999;padding:8px;margin-top:6px" onclick="backMain()">← رجوع</button></div>
+</div>
+<div class="topStatus"><span>04:28 📶</span><span>🔋</span></div>
+<div class="topTabs">
+<button class="tabPill on" onclick="switchTab('voice',this)">🎤 الصوت</button>
+<button class="tabPill" onclick="switchTab('match',this)">❤️ Match</button>
+<button class="tabPill" onclick="openShop()">💰 العملات</button>
+</div>
+<div class="sectionHead"><h3>🎙️ كل الصوت</h3></div>
+<div class="roomsGrid" id="voiceRooms"></div>
+<div class="sectionHead"><h3>🔥 شائع</h3></div>
+<div class="roomsGrid" id="popularRooms"></div>
+<div class="sectionHead"><h3>🎮 اللاعبون</h3></div>
+<div class="roomsGrid" id="playersRooms"></div>
+<div class="bottomNav">
+<div class="navItem" onclick="openShop()"><span class="ico">🗨️</span>الدردشات</div>
+<div class="navItem on"><span class="ico">🪙</span>العملات</div>
+<div class="navItem"><span class="ico">🔍</span>استكشاف</div>
+<div class="navItem"><span class="ico">👥</span>متابعة</div>
+<div class="navItem" onclick="logout()"><span class="ico">👤</span>أنا</div>
+</div>
+<div id="audioPage" style="position:fixed;inset:0;background:#f5f5f7;z-index:95;display:none;flex-direction:column">
+<div style="background:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee">
+<button onclick="closeAudio()" style="background:#f0f0f0;border:0;padding:6px 12px;border-radius:12px">‹ رجوع</button>
+<div style="font-weight:800">غرفة صوتية 15 كرسي</div>
+<button onclick="openGifts()" style="background:#111;color:#fff;border:0;padding:6px 12px;border-radius:12px">🎁 هدايا</button>
+</div>
+<div style="flex:1;padding:12px;overflow-y:auto"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px" id="chairsGrid"></div></div>
+<div style="display:flex;gap:8px;padding:8px;background:linear-gradient(180deg,#1a0a2e,#0a0a12)" id="giftBarAudio"></div>
+<div style="display:flex;justify-content:space-around;padding:10px;background:#fff;border-top:1px solid #eee">
+<button class="lcBtn" style="background:#f0f0f0;color:#111" onclick="toggleMicAudio()">🎤</button>
+<button class="lcBtn" style="background:#111;color:#fff" onclick="takeRandomChair()">🪑</button>
+<button class="lcBtn gift" onclick="openGifts()">🎁</button>
+<button class="lcBtn leave" onclick="closeAudio()">✕</button>
+</div>
+</div>
+<div id="shopPage"><div style="display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid #eee"><div style="font-weight:800">🎁 المتجر</div><div>🟡 0</div></div><div class="packages" id="packages"></div><div style="padding:12px"><button onclick="showHome()" style="width:100%;background:#111;color:#fff;border:0;padding:12px;border-radius:12px;font-weight:800">رجوع للرئيسية</button></div></div>
+<div id="giftModal" style="position:fixed;inset:0;background:#000a;z-index:200;display:none;flex-direction:column;justify-content:flex-end" onclick="if(event.target===this)closeGifts()"><div style="background:#111;border-radius:20px 20px 0 0;max-height:80vh"><div style="display:flex;justify-content:space-between;padding:12px;color:#fff"><b>🎁 الهدايا</b><button onclick="closeGifts()" style="background:#222;color:#fff;border:0;padding:5px 11px;border-radius:12px">✕</button></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px" id="giftGrid"></div></div></div>
+<script>
+let currentUser=null,micOn=true,myChair=1,otpSent=false;
+function checkAuth(){try{let s=localStorage.getItem('tango_v5');if(s){currentUser=JSON.parse(s);showApp();}}catch(e){}}
+function loginFB(){document.getElementById('mainAuthBtns').style.display='none';document.getElementById('fbLoad').classList.add('on');setTimeout(()=>{currentUser={name:'Aboubakr'};localStorage.setItem('tango_v5',JSON.stringify(currentUser));showApp();},1500);}
+function loginGuest(){currentUser={name:'ضيف'};localStorage.setItem('tango_v5',JSON.stringify(currentUser));showApp();}
+function showGmail(){document.getElementById('mainAuthBtns').style.display='none';document.getElementById('gmailBox').style.display='block';}
+function showPhone(){document.getElementById('mainAuthBtns').style.display='none';document.getElementById('phoneBox').style.display='block';}
+function backMain(){document.getElementById('mainAuthBtns').style.display='block';document.getElementById('gmailBox').style.display='none';document.getElementById('phoneBox').style.display='none';document.getElement
