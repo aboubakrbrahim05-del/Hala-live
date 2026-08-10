@@ -1,207 +1,108 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tango Live Plus PRO</title>
+<title>Tango Live Plus PRO V4.1 - هدايا بثمن جديد</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#0a0a12;color:#fff;overflow-x:hidden}
+body{background:#0a0a12;color:#fff;padding-bottom:70px;overflow-x:hidden}
 .hd{position:sticky;top:0;z-index:30;background:#161626;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid #2a2a40}
-.logo{font-weight:900;font-size:20px;background:linear-gradient(90deg,#ff2a6d,#ffb800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.coin{background:#252538;padding:6px 12px;border-radius:20px;font-size:12px}
+.logo{font-weight:900;font-size:16px;background:linear-gradient(90deg,#ff2a6d,#ffb800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.userBox{display:flex;align-items:center;gap:6px;background:#252538;padding:4px 10px;border-radius:20px;font-size:12px;cursor:pointer}
+.userAv{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#ff2a6d);display:flex;align-items:center;justify-content:center}
+#authPage{position:fixed;inset:0;background:linear-gradient(180deg,#1a0a2e 0%,#0a0a12 100%);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#authPage.off{display:none}
+.authLogo{font-size:42px;font-weight:900;background:linear-gradient(90deg,#ff2a6d,#ffb800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.authSub{color:#999;font-size:13px;margin-bottom:24px}
+.authBox{background:#161626;border:1px solid #2a2a40;border-radius:20px;padding:20px;width:100%;max-width:360px}
+.authTitle{font-size:18px;font-weight:800;margin-bottom:16px;text-align:center}
+.btnAuth{width:100%;padding:14px;border-radius:14px;border:0;font-weight:800;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px}
+.btnFB{background:#1877F2;color:#fff}.btnGmail{background:#fff;color:#000}.btnPhone{background:#252538;color:#fff;border:1px solid #333}
+.inputGroup{margin-bottom:12px}.inputGroup label{font-size:12px;color:#999;display:block;margin-bottom:6px}.inputGroup input{width:100%;background:#0f0f1a;border:1px solid #2a2a40;padding:12px 14px;border-radius:12px;color:#fff;font-size:14px}
+.btnSubmit{width:100%;background:linear-gradient(90deg,#ff2a6d,#ffb800);color:#fff;border:0;padding:13px;border-radius:12px;font-weight:800;cursor:pointer}
+.fbLoading{display:none;text-align:center;padding:20px}.fbLoading.on{display:block}.checkIcon{width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px}
 .tabs{display:flex;gap:8px;padding:10px 16px;overflow-x:auto;background:#161626}
 .tab{white-space:nowrap;padding:7px 16px;border-radius:20px;background:#252538;border:0;color:#999;font-size:13px}
 .tab.on{background:#ff2a6d;color:#fff}
 .banner{margin:12px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899,#f59e0b);border-radius:18px;padding:18px;display:flex;justify-content:space-between;align-items:center}
-.btns{display:flex;gap:8px;padding:0 16px}
-.btn{flex:1;padding:13px;border-radius:14px;border:0;font-weight:900;cursor:pointer;font-size:14px}
-.btn1{background:#ffb800;color:#000}
-.btn2{background:#252538;color:#fff;border:1px solid #333}
+.btns{display:flex;gap:8px;padding:0 16px;margin-bottom:8px}
+.btn{flex:1;padding:13px;border-radius:14px;border:0;font-weight:900;cursor:pointer;font-size:13px}
+.btn1{background:#ffb800;color:#000}.btn2{background:linear-gradient(90deg,#8b5cf6,#ec4899);color:#fff}
 .rooms{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
 .room{background:#1c1c30;border-radius:16px;overflow:hidden;border:1px solid #2a2a40;cursor:pointer}
-.thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;background:#222}
+.thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:44px;position:relative;background:#222}
 .liveB{position:absolute;top:6px;left:6px;background:#ff2a5a;color:#fff;font-size:9px;padding:3px 8px;border-radius:10px;font-weight:800}
 .view{position:absolute;bottom:6px;left:6px;background:#000a;padding:3px 7px;border-radius:10px;font-size:10px}
 .mics{position:absolute;bottom:6px;right:6px;background:#000a;padding:3px 7px;border-radius:10px;font-size:10px}
-.info{padding:8px}
-.name{font-size:13px;font-weight:800}
-.city{font-size:11px;color:#999}
-.support{position:fixed;bottom:85px;left:14px;background:#25D366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;z-index:40;text-decoration:none;box-shadow:0 4px 15px #000}
+.info{padding:8px}.name{font-size:13px;font-weight:800}.city{font-size:11px;color:#999}
+.support{position:fixed;bottom:85px;left:14px;background:#25D366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;z-index:40;text-decoration:none}
+.giftFloat{position:fixed;bottom:145px;right:14px;background:linear-gradient(135deg,#ffb800,#ff2a6d);color:#fff;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;z-index:45;box-shadow:0 6px 20px #ff2a6d88;animation:floatGift 1.5s infinite;border:2px solid #fff;cursor:pointer}
+@keyframes floatGift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#161626;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #2a2a40;z-index:35}
-.nav div{text-align:center;font-size:11px;color:#777}
-.nav div.on{color:#ff2a6d}
-#roomPage{position:fixed;inset:0;background:#050510;z-index:100;display:none;flex-direction:column}
-#roomPage.on{display:flex}
-.videoMain{flex:1;position:relative;background:#000}
-.videoMain video{width:100%;height:100%;object-fit:cover}
-.party{position:absolute;top:10px;left:10px;right:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-.party.p{aspect-ratio:1;background:#1a1a2a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid transparent;position:relative;overflow:hidden}
-.party.p.me{border-color:#ff2a6d}
-.party.p video{width:100%;height:100%;object-fit:cover}
-.seats{background:#161626;padding:10px;border-top:1px solid #2a2a40}
-.seats h4{font-size:13px;margin-bottom:8px;display:flex;justify-content:space-between}
-.seatGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.seat{background:#1e1e36;border:1px solid #2a2a40;border-radius:12px;padding:6px;text-align:center;cursor:pointer;position:relative;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.seat.av{width:32px;height:32px;border-radius:50%;background:#2a2a40;display:flex;align-items:center;justify-content:center;font-size:16px}
-.seat.nm{font-size:9px;margin-top:3px}
-.micIcon{position:absolute;bottom:2px;right:2px;font-size:10px;background:#0008;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center}
-.giftBar{display:flex;gap:6px;overflow-x:auto;padding:8px;background:#11111f;border-top:1px solid #222}
-.giftItem{background:#1e1e36;border:1px solid #2a2a40;padding:6px 10px;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer}
-.controls{display:flex;gap:10px;justify-content:center;padding:10px;background:#161626}
-.cbtn{width:48px;height:48px;border-radius:50%;border:0;font-size:20px;cursor:pointer;color:#fff}
-#giftModal{position:fixed;inset:0;background:#000c;z-index:200;display:none}
-#giftModal.on{display:flex;flex-direction:column;justify-content:flex-end}
-.giftBox{background:#161626;border-radius:20px 20px 0 0;max-height:85vh;display:flex;flex-direction:column}
+.nav div{text-align:center;font-size:11px;color:#777}.nav div.on{color:#ff2a6d}
+#live10{position:fixed;inset:0;background:#000;z-index:100;display:none;flex-direction:column}
+#live10.on{display:flex}
+.vMain{flex:1;position:relative;background:#000}
+.vMain video{width:100%;height:100%;object-fit:cover}
+.party10{position:absolute;top:60px;left:6px;right:6px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.p10{aspect-ratio:3/4;background:#1a1a2a;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:18px;border:2px solid #333;position:relative;overflow:hidden}
+.p10.me{border-color:#ff2a6d}.p10 video{width:100%;height:100%;object-fit:cover}
+#audio15{position:fixed;inset:0;background:linear-gradient(180deg,#1a0a2e,#0a0a12);z-index:101;display:none;flex-direction:column}
+#audio15.on{display:flex}
+.audioTop{padding:12px;background:#161626;border-bottom:1px solid #2a2a40;display:flex;justify-content:space-between;align-items:center}
+.camPreview{width:100%;height:180px;background:#000;display:none;position:relative}.camPreview.on{display:block}.camPreview video{width:100%;height:100%;object-fit:cover}
+.seatsWrap{flex:1;padding:12px;overflow-y:auto}.seatGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.seat{background:#1e1e36;border:2px solid #2a2a40;border-radius:14px;padding:8px 4px;text-align:center;cursor:pointer;position:relative;min-height:78px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.seat.taken{border-color:#8b5cf6;background:#252545}.seat.you{border-color:#ffb800;background:#332a00;box-shadow:0 0 10px #ffb80055}
+.seat.av{width:40px;height:40px;border-radius:50%;background:#2a2a40;display:flex;align-items:center;justify-content:center;font-size:20px}
+.seat.nm{font-size:10px;margin-top:6px;font-weight:700}.seat.role{font-size:8px;color:#999}
+.controls{padding:10px;background:#161626;border-top:1px solid #2a2a40;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.cbtn{width:52px;height:52px;border-radius:50%;border:0;font-size:20px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.cbtn span{font-size:8px;margin-top:2px}.cbtn.giftBig{background:linear-gradient(135deg,#ffb800,#ff2a6d);width:60px;height:60px;font-size:26px;border:2px solid #fff}
+.cbtn.micOn{background:#333}.cbtn.micOff{background:#ff2a5a}
+.giftBar{display:flex;gap:6px;overflow-x:auto;padding:10px;background:#11111f;border-top:2px solid #ffb800}
+.giftBarTitle{font-size:11px;color:#ffb800;padding:0 10px;background:#11111f}
+.giftItem{background:#1e1e36;border:1px solid #ffb80055;padding:7px 12px;border-radius:20px;font-size:13px;white-space:nowrap;cursor:pointer}
+#giftModal{position:fixed;inset:0;background:#000c;z-index:200;display:none}#giftModal.on{display:flex;flex-direction:column;justify-content:flex-end}
+.giftBox{background:#161626;border-radius:20px 20px 0 0;max-height:88vh;display:flex;flex-direction:column}
 .giftHead{display:flex;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #2a2a40}
 .giftGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px;overflow-y:auto}
 .gCell{background:#1e1e36;border:1px solid #2a2a40;border-radius:12px;padding:8px;text-align:center;cursor:pointer}
-.gCell.em{font-size:26px}
-.gCell.gn{font-size:9px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gCell.gp{font-size:10px;color:#ffb800}
 </style>
 </head>
 <body>
-<div class="hd"><div class="logo">Tango Live Plus PRO</div><div class="coin">🪙 24,145</div></div>
-<div class="tabs">
-<button class="tab on" onclick="filter('all',this)">الكل</button>
-<button class="tab" onclick="filter('ma',this)">🇲🇦 مغربيات</button>
-<button class="tab" onclick="filter('ar',this)">🇸🇦 عرب</button>
-<button class="tab" onclick="filter('eu',this)">🇪🇸 أجانب</button>
-<button class="tab" onclick="filter('new',this)">✨ جدد</button>
+<div id="authPage">
+<div class="authLogo">Tango Live Plus</div>
+<div class="authSub">PRO V4.1 • هدايا بثمن جديد</div>
+<div class="authBox" id="authBoxMain">
+<div class="authTitle">سجل دخول</div>
+<button class="btnAuth btnFB" onclick="loginFB()">📘 Facebook - موافقة صافي</button>
+<button class="btnAuth btnGmail" onclick="showGmail()">📧 Gmail</button>
+<button class="btnAuth btnPhone" onclick="showPhone()">📱 رقم الهاتف</button>
+<div style="font-size:11px;color:#666;text-align:center;margin-top:12px">الدعم: 0711039826</div>
 </div>
-<div class="banner"><div><h3>افتح غرفة 15 كرسي واربح</h3><p style="font-size:12px;opacity:.9">كل كرسي = هدايا</p></div><div style="font-size:32px">🎙️</div></div>
-<div class="btns">
-<button class="btn btn1" onclick="openRoomPage('my')">🔴 ابدأ لايف (10 ناس)</button>
-<button class="btn btn2" onclick="openRoomPage('create')">➕ إنشاء غرفة 15 كرسي</button>
+<div class="authBox fbLoading" id="fbLoad"><div class="checkIcon" id="fbIcon">⏳</div><div style="text-align:center;font-weight:800" id="fbText">جاري الاتصال...</div><div style="text-align:center;font-size:12px;color:#999" id="fbSub">كانقلب على حسابك</div></div>
+<div class="authBox" id="gmailBox" style="display:none"><div class="authTitle">📧 Gmail</div><div class="inputGroup"><label>البريد</label><input id="gmailInput" type="email" placeholder="example@gmail.com"></div><div class="inputGroup"><label>الإسم</label><input id="gmailName" type="text" placeholder="إسمك"></div><button class="btnSubmit" onclick="loginGmail()">دخول ✅</button><button style="width:100%;background:transparent;color:#999;border:0;padding:10px;margin-top:8px;cursor:pointer" onclick="backMain()">← رجوع</button></div>
+<div class="authBox" id="phoneBox" style="display:none"><div class="authTitle">📱 رقم الهاتف</div><div class="inputGroup"><label>رقم الهاتف</label><input id="phoneInput" type="tel" placeholder="0711 03 98 26" value="0711"></div><div class="inputGroup" id="otpGroup" style="display:none"><label>كود 1234</label><input id="otpInput" type="text" placeholder="1234"></div><button class="btnSubmit" id="phoneBtn" onclick="loginPhone()">إرسال الكود 📩</button><button style="width:100%;background:transparent;color:#999;border:0;padding:10px;margin-top:8px;cursor:pointer" onclick="backMain()">← رجوع</button></div>
 </div>
+<div class="hd"><div class="logo">Tango Live Plus PRO V4.1</div><div class="userBox" onclick="logout()"><div class="userAv" id="userAv">👤</div><span id="userName">ضيف</span></div></div>
+<div class="tabs"><button class="tab on">الكل</button><button class="tab">🇲🇦 مغربيات</button><button class="tab">🇸🇦 عرب</button><button class="tab">🇪🇸 أجانب</button></div>
+<div class="banner"><div><h3>مرحبا <span id="welcomeName">صديقي</span>! 👋</h3><p style="font-size:11px">هدايا من 12 درهم حتى 10.000 درهم</p></div><div style="font-size:28px">🎁</div></div>
+<div class="btns"><button class="btn btn1" onclick="openLive10()">🔴 لايف 10 ناس</button><button class="btn btn2" onclick="openAudio15()">🎙️ غرفة 15 كرسي</button></div>
 <div id="rooms" class="rooms"></div>
-<a class="support" href="https://wa.me/212711039826?text=سلام بغيت الدعم فتطبيق Tango Live Plus PRO" target="_blank">💬</a>
-<div class="nav"><div class="on">🏠<br>الرئيسية</div><div onclick="openRoomPage('my')">🔴<br>لايف</div><div onclick="window.open('https://wa.me/212711039826','_blank')">💬<br>الدعم 0711</div><div>👤<br>حسابي</div></div>
-<div id="roomPage">
-<div class="videoMain">
-<video id="mainV" autoplay playsinline></video>
-<div class="party" id="partyGrid"></div>
-<div style="position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center">
-<button onclick="closeRoom()" style="background:#0008;color:#fff;border:0;padding:7px 14px;border-radius:20px">✕ خروج</button>
-<div style="display:flex;gap:6px"><span style="background:#ff2a5a;padding:5px 10px;border-radius:12px;font-size:11px">🔴 LIVE 10/10</span><span style="background:#0008;padding:5px 10px;border-radius:12px;font-size:11px">👁️ 1.2k</span></div>
-</div>
-<div style="position:absolute;bottom:10px;left:10px;right:10px;font-size:12px;line-height:1.5" id="chat"></div>
-</div>
-<div class="seats">
-<h4><span>🎙️ كراسي الغرفة (15) - أي واحد يقدر يطلع</span><span style="color:#ffb800">👑 أنت المضيف</span></h4>
-<div class="seatGrid" id="seatGrid"></div>
-</div>
-<div class="giftBar" id="miniGifts"></div>
-<div class="controls">
-<button class="cbtn" style="background:#333" onclick="toggleMic()" id="micB">🎤</button>
-<button class="cbtn" style="background:#333" onclick="switchCam()" id="camSwitch">🔄</button>
-<button class="cbtn" style="background:#ff2a5a" onclick="closeRoom()">📞</button>
-<button class="cbtn" style="background:#333" onclick="openGiftShop()">🎁</button>
-<button class="cbtn" style="background:#333" onclick="toggleCam()" id="camB">📹</button>
-</div>
-</div>
-<div id="giftModal" onclick="if(event.target===this)closeGiftShop()">
-<div class="giftBox">
-<div class="giftHead"><h3>🎁 متجر الهدايا - 500 هدية</h3><button onclick="closeGiftShop()" style="background:#222;color:#fff;border:0;padding:6px 12px;border-radius:12px">✕</button></div>
-<div style="padding:8px 12px;display:flex;gap:6px"><input id="giftSearch" placeholder="قلب على هدية..." style="flex:1;background:#1e1e36;border:1px solid #2a2a40;padding:8px 12px;border-radius:12px;color:#fff" oninput="searchGift(this.value)"><span style="background:#ffb800;color:#000;padding:8px 12px;border-radius:12px;font-size:12px">🪙 24,145</span></div>
-<div class="giftGrid" id="giftGrid"></div>
-</div>
-</div>
+<a class="support" href="https://wa.me/212711039826?text=سلام بغيت الدعم" target="_blank">💬</a>
+<div class="giftFloat" onclick="openGifts()">🎁</div>
+<div class="nav"><div class="on">🏠<br>الرئيسية</div><div onclick="openLive10()">🔴<br>لايف</div><div onclick="openAudio15()">🎙️<br>صوتي</div><div onclick="openGifts()">🎁<br>هدايا</div></div>
+<div id="live10"><div class="vMain"><video id="v10Main" autoplay playsinline></video><div style="position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between"><button onclick="closeLive10()" style="background:#0008;color:#fff;border:0;padding:8px 14px;border-radius:20px">✕ خروج</button><span style="background:#ff2a5a;padding:6px 10px;border-radius:12px;font-size:11px">🔴 LIVE 10/10</span></div><div class="party10" id="party10"></div><div style="position:absolute;bottom:90px;left:10px;right:80px;font-size:12px" id="chat10"></div><div class="giftFloat" style="bottom:120px" onclick="openGifts()">🎁</div></div><div class="giftBarTitle">🎁 هدايا من 12 درهم حتى 10.000 درهم - دوس باش تهدي</div><div class="giftBar" id="miniG10"></div><div class="controls"><button class="cbtn micOn" id="mic10" onclick="toggleMic10()"><div>🎤</div><span>مايك</span></button><button class="cbtn" style="background:#333" onclick="switchCam10()"><div>🔄</div><span>قلب</span></button><button class="cbtn giftBig" onclick="openGifts()"><div>🎁</div></button><button class="cbtn" style="background:#ff2a5a" onclick="closeLive10()"><div>📞</div><span>خروج</span></button><button class="cbtn" id="cam10" style="background:#333" onclick="toggleCam10()"><div>📹</div><span>كاميرا</span></button></div></div>
+<div id="audio15"><div class="audioTop"><button onclick="closeAudio15()" style="background:#252538;color:#fff;border:0;padding:8px 14px;border-radius:20px">✕ خروج</button><div style="text-align:center"><div style="font-weight:800">غرفة صوتية 15 كرسي</div><div style="font-size:11px;color:#999">🎁 12 د.م → 10.000 د.م</div></div><button onclick="openGifts()" style="background:linear-gradient(135deg,#ffb800,#ff2a6d);color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:800">🎁 هدايا</button></div><div class="camPreview" id="camPrev"><video id="v15" autoplay playsinline muted></video><button onclick="toggleCam15()" style="position:absolute;top:8px;right:8px;background:#0008;color:#fff;border:0;padding:6px 10px;border-radius:12px">✕ سد الكاميرا</button></div><div class="seatsWrap"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><span style="font-size:13px">🎙️ الكراسي (15)</span><span style="font-size:11px;color:#ffb800" id="hostLabel">👑 أنت</span></div><div class="seatGrid" id="seat15Grid"></div><div style="margin-top:10px;font-size:12px" id="chat15"></div></div><div class="giftBarTitle">🎁 هدايا من 12 درهم حتى 10.000 درهم</div><div class="giftBar" id="miniG15"></div><div class="controls"><button class="cbtn micOn" id="mic15" onclick="toggleMic15()"><div>🎤</div><span>مايك</span></button><button class="cbtn" style="background:#8b5cf6" onclick="takeRandomSeat()"><div>🪑</div><span>خد كرسي</span></button><button class="cbtn giftBig" onclick="openGifts()"><div>🎁</div></button><button class="cbtn" id="cam15Btn" style="background:#333" onclick="toggleCam15()"><div>📹</div><span>كاميرا</span></button><button class="cbtn" style="background:#ff2a5a" onclick="closeAudio15()"><div>📞</div><span>خروج</span></button></div><div class="giftFloat" style="bottom:120px" onclick="openGifts()">🎁</div></div>
+<div id="giftModal" onclick="if(event.target===this)closeGifts()"><div class="giftBox"><div class="giftHead"><div><h3>🎁 متجر الهدايا - 500 هدية</h3><p style="font-size:11px;color:#999">من 12 درهم حتى 10.000 درهم - كيزيد بـ 50</p></div><button onclick="closeGifts()" style="background:#222;color:#fff;border:0;padding:6px 12px;border-radius:12px">✕</button></div><div class="giftGrid" id="giftGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px;overflow-y:auto;max-height:60vh"></div></div></div>
 <script>
-const MY_NUMBER="212711039826";
-let stream=null, facing="user", micOn=true, camOn=true;
-const roomsData=[
-{n:'Lina 🇲🇦',c:'ma',e:'💃',v:'1.2k',city:'البيضاء',mics:'12/15'},
-{n:'Sofia 🇪🇸',c:'eu',e:'👩‍🎤',v:'3.4k',city:'مدريد',mics:'15/15'},
-{n:'Amina',c:'ma',e:'👩',v:'890',city:'مراكش',mics:'8/15'},
-{n:'Noura',c:'ar',e:'🧕',v:'5.6k',city:'دبي',mics:'14/15'},
-{n:'Sara',c:'ma',e:'👧',v:'2.1k',city:'فاس',mics:'10/15'},
-{n:'Hana',c:'ar',e:'💃',v:'4.3k',city:'الرياض',mics:'9/15'},
-{n:'Mia',c:'eu',e:'👩',v:'1.8k',city:'باريس',mics:'11/15'},
-{n:'Khadija',c:'ma',e:'🧕',v:'3.2k',city:'طنجة',mics:'15/15'}
-];
-function renderRooms(){
-document.getElementById('rooms').innerHTML=roomsData.map(r=>`
-<div class="room" onclick="openRoomPage('${r.n}')"><div class="thumb">${r.e}<span class="liveB">LIVE</span><span class="view">👁️ ${r.v}</span><span class="mics">🎙️ ${r.mics}</span></div><div class="info"><div class="name">${r.n}</div><div class="city">📍 ${r.city}</div></div></div>`).join('');
-}
-function filter(cat,btn){
-document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
-let list=cat==='all'?roomsData:roomsData.filter(r=>r.c===cat);
-document.getElementById('rooms').innerHTML=list.map(r=>`
-<div class="room" onclick="openRoomPage('${r.n}')"><div class="thumb">${r.e}<span class="liveB">LIVE</span><span class="view">👁️ ${r.v}</span><span class="mics">🎙️ ${r.mics}</span></div><div class="info"><div class="name">${r.n}</div><div class="city">📍 ${r.city}</div></div></div>`).join('');
-}
-function renderSeats(){
-const grid=document.getElementById('seatGrid');
-let h='';
-for(let i=1;i<=15;i++){
-if(i===1)h+=`<div class="seat" onclick="takeSeat(${i})"><div class="av">👑</div><div class="nm">أنت</div><div class="micIcon">${micOn?'🎤':'🔇'}</div></div>`;
-else if(i<=6)h+=`<div class="seat" onclick="takeSeat(${i})"><div class="av">${['💃','👩','🧕','👧','👩‍🎤'][i%5]}</div><div class="nm">ضيف ${i}</div><div class="micIcon">🎤</div></div>`;
-else h+=`<div class="seat" onclick="takeSeat(${i})"><div class="av">+</div><div class="nm">فارغ ${i}</div><div class="micIcon">🔇</div></div>`;
-}
-grid.innerHTML=h;
-}
-function renderParty(){
-const pg=document.getElementById('partyGrid');
-let h='';
-for(let i=1;i<=10;i++){
-if(i===1)h+=`<div class="p me"><video id="p1" autoplay playsinline muted></video><span style="position:absolute;bottom:2px;font-size:8px;background:#ff2a5a;padding:1px 4px;border-radius:6px">أنت</span></div>`;
-else h+=`<div class="p"><span>${['💃','👩','🧕','👧','🎤','👑','💎','🌹','🚀','❤️'][i%10]}</span><span style="position:absolute;bottom:1px;font-size:7px">User${i}</span></div>`;
-}
-pg.innerHTML=h;
-}
-const giftNames=["وردة حب","قلب أحمر","خاتم الماس","تاج الملك","سيارة فيراري","قصر الأحلام","أسد قوي","نمر","صاروخ","طيارة","يخت","دراجة","ساعة رولكس","حقيبة","عطر","كأس","بالون","نجمة","قمر","شمس","وردة صفراء","وردة بيضاء","قلب ذهبي","دب","شوكولا","كتاب","ميكروفون","كاميرا","هاتف","لابتوب","سلسلة ذهب","سوار","قلادة","باقة ورد","تاج ملكة","تاج أميرة","فراشة","عصفور","دولفين","قط","كلب","حصان","أرنب","باندا","دب قطبي","أسد البحر","قرد","زرافة","فيل","حوت","سفينة","جزيرة","جبل","بحر","غابة","زهرة","شجرة","تفاحة","موز","فراولة","عنب","بطيخ","كيك","آيس كريم","قهوة","شاي","بيتزا","برغر","سيارة سباق","دراجة نارية","هليكوبتر","منطاد","قلعة","برج","جسر","ساعة","خاتم","نظارة","قبعة","حذاء","فستان","بدلة","حقيبة سفر","مفتاح","قفل","مصباح","شمعة","كرة","لعبة","هدية مفاجأة","صندوق كنز","عملة ذهبية","ماسة زرقاء","ياقوت","زمرد","لؤلؤ","مرجان","ذهب","فضة","نحاس","حديد","بلاتين","كريستال","قوس قزح","برق","رعد","ثلج","مطر","رياح","نار","ماء","هواء","تراب","نجمة ذهبية","نجمة فضية","هلال","شمس مشرقة","كوكب","مجرة","فضاء","رائد فضاء","روبوت","وحش","تنين","حورية","ملاك","شيطان","ساحر","أميرة","ملك","ملكة","فارس","جندي","طبيب","مهندس","طيار","بحار","مزارع","معلم","طالب","فنان","مغني","راقص","ممثل","رياضي","بطل","نجم","قمر صناعي"];
-const giftEmojis=["🌹","❤️","💎","👑","🏎️","🏰","🦁","🐯","🚀","✈️","🛥️","🚲","⌚","👜","💐","🏆","🎈","⭐","🌙","☀️","🌻","🤍","💛","🧸","🍫","📚","🎤","📸","📱","💻","💍","⌚","📿","💐","👑","👸","🦋","🐦","🐬","🐱","🐶","🐴","🐰","🐼","🐻‍❄️","🦭","🐒","🦒","🐘","🐋","🚢","🏝️","⛰️","🌊","🌲","🌸","🌳","🍎","🍌","🍓","🍇","🍉","🎂","🍦","☕","🍵","🍕","🍔","🏁","🏍️","🚁","🎈","🏯","🗼","🌉","⏰","💍","🕶️","🎩","👟","👗","🤵","🧳","🔑","🔒","💡","🕯️","⚽","🧩","🎁","💰","💎","♦️","💚","🤍","🪸","🪙","🥈","🥉","🔩","💿","🔮","🌈","⚡","🌩️","❄️","🌧️","💨","🔥","💧","🌬️","🌍","🌟","✨","🌙","🌞","🪐","🌌","🚀","👨‍🚀","🤖","👹","🐉","🧜‍♀️","👼","😈","🧙‍♂️","👸","🤴","👸","🤺","💂","👨‍⚕️","👷","✈️","⚓","👨‍🌾","👨‍🏫","👨‍🎓","👨‍🎨","🎤","💃","🎭","⛹️","🦸","🌟","🛰️"];
-let allGifts=[];
-for(let i=0;i<500;i++){
-const name=giftNames[i%giftNames.length]+` ${Math.floor(i/giftNames.length)+1}`;
-allGifts.push({id:i+1,emoji:giftEmojis[i%giftEmojis.length],name:name,price:[10,25,50,100,250,500,1000,2500,5000,10000][i%10]});
-}
-function renderGifts(list){
-document.getElementById('giftGrid').innerHTML=list.map(g=>`<div class="gCell" onclick="sendGift('${g.emoji}','${g.name}',${g.price})"><div class="em">${g.emoji}</div><div class="gn">${g.name}</div><div class="gp">🪙 ${g.price}</div></div>`).join('');
-document.getElementById('miniGifts').innerHTML=list.slice(0,20).map(g=>`<div class="giftItem" onclick="sendGift('${g.emoji}','${g.name}',${g.price})">${g.emoji} ${g.price}</div>`).join('');
-}
-function searchGift(q){
-const f=allGifts.filter(g=>g.name.includes(q)||g.price.toString().includes(q));
-renderGifts(f);
-}
-function openGiftShop(){document.getElementById('giftModal').classList.add('on');renderGifts(allGifts);}
-function closeGiftShop(){document.getElementById('giftModal').classList.remove('on');}
-function sendGift(e,n,p){alert(`تم إرسال ${e} ${n} بـ ${p} كوينز 🪙\nالدعم: 0711039826`);closeGiftShop();}
-async function openRoomPage(name){
-document.getElementById('roomPage').classList.add('on');
-renderSeats();renderParty();renderGifts(allGifts);
-const chatMsgs=['Simo: واو زوينة ❤️','Ali: تبارك الله','Hassan: ممكن نهديك؟','Kamal: فينك؟','Amine: منورة 🌹','Lina: شكرا على الهدايا'];
-let idx=0;const chat=document.getElementById('chat');
-setInterval(()=>{if(!document.getElementById('roomPage').classList.contains('on'))return;chat.innerHTML+=`<div>${chatMsgs[idx%chatMsgs.length]}</div>`;idx++;if(chat.children.length>3)chat.removeChild(chat.firstChild);},2000);
-try{
-if(stream)stream.getTracks().forEach(t=>t.stop());
-stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:true});
-document.getElementById('mainV').srcObject=stream;
-document.getElementById('mainV').muted=true;
-const p1=document.getElementById('p1');
-if(p1)p1.srcObject=stream;
-micOn=true;camOn=true;
-}catch(e){alert('خاصك تسمح بالكاميرا والمايك: '+e.message)}
-}
-function closeRoom(){document.getElementById('roomPage').classList.remove('on');if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}}
-function takeSeat(i){alert(`طلعتي للكرسي ${i} - دابا تقدر تهضر! 🎙️\nالمايك: ${micOn?'خدام':'مطفي'}`);}
-async function switchCam(){
-facing=facing==='user'?'environment':'user';
-try{
-if(stream)stream.getTracks().forEach(t=>t.stop());
-stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:true});
-document.getElementById('mainV').srcObject=stream;
-const p1=document.getElementById('p1');if(p1)p1.srcObject=stream;
-}catch(e){alert('ما كايناش كاميرا لور فهاد التيليفون أو خاصك تسمح');facing='user';}
-}
-function toggleMic(){
-if(!stream)return;const a=stream.getAudioTracks()[0];if(a){a.enabled=!a.enabled;micOn=a.enabled;document.getElementById('micB').style.background=micOn?'#333':'#ff2a5a';document.getElementById('micB').innerText=micOn?'🎤':'🔇';}
-}
-function toggleCam(){
-if(!stream)return;const v=stream.getVideoTracks()[0];if(v){v.enabled=!v.enabled;camOn=v.enabled;document.getElementById('camB').style.background=camOn?'#333':'#ff2a5a';}
-}
-renderRooms();
-</script>
-</body>
-  </html>
+let currentUser=null;function checkAuth(){let saved=localStorage.getItem('tango_user');if(saved){currentUser=JSON.parse(saved);showApp();}else{document.getElementById('authPage').classList.remove('off');}}function loginFB(){document.getElementById('authBoxMain').style.display='none';let load=document.getElementById('fbLoad');load.classList.add('on');let icon=document.getElementById('fbIcon'),text=document.getElementById('fbText'),sub=document.getElementById('fbSub');icon.innerText='⏳';text.innerText='جاري الاتصال بـ Facebook...';sub.innerText='كانقلب على حسابك';setTimeout(()=>{icon.innerText='🔍';text.innerText='لقينا حسابك!';sub.innerText='Aboubakr';},800);setTimeout(()=>{icon.innerText='✅';icon.style.background='#1877F2';text.innerText='تمت الموافقة!';sub.innerText='صافي تسجلتي!';},1800);setTimeout(()=>{currentUser={name:'Aboubakr',full:'Aboubakr Aouiter',method:'facebook',avatar:'📘',email:'fb@facebook.com'};localStorage.setItem('tango_user',JSON.stringify(currentUser));showApp();},2500);}function showGmail(){document.getElementById('authBoxMain').style.display='none';document.getElementById('gmailBox').style.display='block';}function showPhone(){document.getElementById('authBoxMain').style.display='none';document.getElementById('phoneBox').style.display='block';}function backMain(){document.getElementById('authBoxMain').style.display='block';document.getElementById('gmailBox').style.display='none';document.getElementById('phoneBox').style.display='none';document.getElementById('fbLoad').classList.remove('on');document.getElementById('otpGroup').style.display='none';document.getElementById('phoneBtn').innerText='إرسال الكود 📩';}function loginGmail(){let email=document.getElementById('gmailInput').value;let name=document.getElementById('gmailName').value;if(!email.includes('@')){alert('دخل جيميل صحيح');return;}if(!name){alert('دخل سميتك');return;}currentUser={name:name.split(' ')[0],full:name,method:'gmail',avatar:'📧',email:email};localStorage.setItem('tango_user',JSON.stringify(currentUser));showApp();}let otpSent=false;function loginPhone(){let phone=document.getElementById('phoneInput').value;let otp=document.getElementById('otpInput').value;if(!otpSent){if(phone.length<9){alert('دخل نمرة صحيحة');return;}document.getElementById('otpGroup').style.display='block';document.getElementById('phoneBtn').innerText='تأكيد ودخول ✅';otpSent=true;alert('كود: 1234');return;}if(otp!=='1234' && otp!==''){alert('الكود خطأ - جرب 1234');return;}currentUser={name:'User '+phone.slice(-4),full:'مستخدم '+phone,method:'phone',avatar:'📱',email:phone,phone:phone};localStorage.setItem('tango_user',JSON.stringify(currentUser));showApp();}function showApp(){document.getElementById('authPage').classList.add('off');if(currentUser){document.getElementById('userName').innerText=currentUser.name;document.getElementById('userAv').innerText=currentUser.avatar;document.getElementById('welcomeName').innerText=currentUser.name;document.getElementById('hostLabel').innerText='👑 '+currentUser.name+' المضيف';}renderRooms();}function logout(){if(confirm('بغيتي تخرج؟')){localStorage.removeItem('tango_user');location.reload();}}
+let stream=null,facing="user",micOn=true,camOn=false,mySeat=1;
+const roomsData=[{n:'Lina 🇲🇦',c:'ma',e:'💃',v:'1.2k',city:'البيضاء',mics:'12/15'},{n:'Sofia 🇪🇸',c:'eu',e:'👩‍🎤',v:'3.4k',city:'مدريد',mics:'15/15'},{n:'Amina',c:'ma',e:'👩',v:'890',city:'مراكش',mics:'8/15'},{n:'Noura',c:'ar',e:'🧕',v:'5.6k',city:'دبي',mics:'14/15'}];
+function renderRooms(){document.getElementById('rooms').innerHTML=roomsData.map(r=>`<div class="room" onclick="openAudio15()"><div class="thumb">${r.e}<span class="liveB">LIVE</span><span class="view">👁️ ${r.v}</span><span class="mics">🎙️ ${r.mics}</span></div><div class="info"><div class="name">${r.n}</div><div class="city">📍 ${r.city}</div></div></div>`).join('');}
+function openLive10(){if(!currentUser){alert('خاصك تسجل أولا');return;}document.getElementById('live10').classList.add('on');let h='';for(let i=1;i<=10;i++){if(i===1)h+=`<div class="p10 me"><video id="p10v1" autoplay playsinline muted></video><div style="position:absolute;bottom:2px;font-size:7px;background:#000a;padding:1px 4px;border-radius:4px">${currentUser.name} 👑</div></div>`;else h+=`<div class="p10"><div style="font-size:22px">${['💃','👩','🧕','👧','👩‍🎤','👑','💎','🌹','🚀','❤️'][i%10]}</div><div style="position:absolute;bottom:2px;font-size:7px;background:#000a;padding:1px 4px;border-radius:4px">User${i}</div></div>`;}document.getElementById('party10').innerHTML=h;startMedia('v10Main','p10v1');chatLoop('chat10');}
+function closeLive10(){document.getElementById('live10').classList.remove('on');stopMedia();}
+async function startMedia(mainId,smallId){try{if(stream)stream.getTracks().forEach(t=>t.stop());stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing},audio:true});document.getElementById(mainId).srcObject=stream;document.getElementById(mainId).muted=true;let s=document.getElementById(smallId);if(s)s.srcObject=stream;micOn=true;camOn=true;updateMic();}catch(e){alert(
