@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TANGO LIVE V6 - REAL</title>
+<script src="/socket.io/socket.io.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+body{background:#0a0a12;color:#fff}
+.top{display:flex;justify-content:space-between;padding:10px;background:#1a1a2e}
+.logo{color:#ff00cc;font-weight:900}
+.coins{background:#222;border-radius:20px;padding:5px 10px}
+.btns{display:flex;gap:8px;padding:10px}
+.b{flex:1;padding:12px;border:0;border-radius:12px;color:#fff;font-weight:800;cursor:pointer}
+.b1{background:#ff0055}.b2{background:#6a11cb}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.card{background:#1a1a2e;border-radius:12px;border:1px solid #222;text-align:center;padding:8px;cursor:pointer}
+.videos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px;background:#000}
+.videos video{width:100%;aspect-ratio:1;object-fit:cover;background:#111;border-radius:12px;border:2px solid #222}
+.videos video.me{border-color:#00ff88}
+.page{display:none;position:fixed;inset:0;background:#000;z-index:20;flex-direction:column}
+.page.on{display:flex}
+.chat{height:100px;overflow:auto;background:#121228;padding:6px;font-size:12px}
+.bar{display:flex;gap:6px;padding:8px;background:#121228}
+.bar input{flex:1;background:#222;border:0;border-radius:20px;padding:10px;color:#fff}
+.ico{width:36px;height:36px;border-radius:50%;border:0;background:#222;color:#fff;cursor:pointer}
+.gifts{position:fixed;bottom:0;left:0;right:0;background:#1a1a2e;border-radius:16px 16px 0 0;transform:translateY(110%);transition:.3s;max-height:70vh;overflow:auto;z-index:99}
+.gifts.on{transform:translateY(0)}
+.gg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:10px}
+.gi{background:#252540;border-radius:10px;padding:6px;text-align:center;border:1px solid #333;cursor:pointer}
+.anim{position:fixed;left:50%;top:50%;font-size:70px;z-index:999;animation:fly 2s forwards;pointer-events:none}
+@keyframes fly{0%{transform:translate(-50%,-50%) scale(.2);opacity:0}20%{opacity:1}100%{transform:translate(-50%,-200%);opacity:0}}
+.btm{position:fixed;bottom:0;left:0;right:0;background:#121228;display:flex;justify-content:space-around;padding:8px;border-top:1px solid #222}
+</style>
+</head>
+<body>
+<div id="home">
+<div class="top"><div class="logo">TANGO LIVE V6 REAL</div><div class="coins">💰 <b id="coinBal">10000</b></div></div>
+<div style="padding:10px"><input id="userName" placeholder="سميتك" value="Brahim" style="width:100%;padding:10px;border-radius:10px;border:1px solid #333;background:#1a1a2e;color:#fff"></div>
+<div class="btns"><button class="b b1" onclick="createLive()">🔴 فتح لايف حقيقي 1-10</button><button class="b b2" onclick="createRoom()">🎙️ غرفة 15 حقيقية</button></div>
+<div class="grid" id="roomList"></div>
+<div style="padding:10px;font-size:11px;opacity:.6">غرف حقيقية: أي واحد يدخل يبان بالكاميرا/المايك بصح</div>
+</div>
+<div id="livePage" class="page">
+<div class="top"><button onclick="leave()" style="background:#222;color:#fff;border:0;border-radius:10px;padding:6px">✕ خروج</button><b id="liveTitle">LIVE</b><span>👁️ <b id="viewCount">1</b></span></div>
+<div class="videos" id="videos3"></div>
+<div class="chat" id="chat1"></div>
+<div class="bar"><input id="msg1" placeholder="رسالة"><button class="ico" onclick="openGifts()">🎁</button><button class="ico" onclick="toggleMic()">🎤</button><button class="ico" onclick="toggleCam()">📹</button><button class="ico" onclick="sendChat(1)">➤</button></div>
+</div>
+<div id="giftsPanel" class="gifts">
+<div style="padding:10px;display:flex;justify-content:space-between"><b>🎁 هدايا حقيقية = فلوس</b><button onclick="closeGifts()" style="background:#222;color:#fff;border:0;border-radius:10px;padding:4px 8px">✕</button></div>
+<div class="gg" id="giftGrid"></div>
+<div style="text-align:center;padding:8px;font-size:11px">رصيدك: <b id="coinBal2">10000</b> | المضيف كيربح 70% من كل هدية</div>
+</div>
+<div class="btm"><div>🧭 استكشاف</div><div onclick="openGifts()">🪙 عملات</div><div>💬 رسائل</div><div>⭐ متابعة</div></div>
+<script>
+const socket = io();
+let localStream, roomId, myName, isMic=true, isCam=true, peers={}, coins=10000;
+const giftList=[['🌹',99],['💋',79],['🍓',59],['❤️',8],['🥂',299],['💞',199],['🧸',89],['📹',79],['🌸',359],['👄',279],['🎆',199],['🔥',99],['😍',99],['😘',99],['😂',99],['🥰',99],['🐚',999],['💵',799],['🎂',399],['💋',129],['💐',1499],['🔑',499],['🪇',129],['🔫',99],['🦁',5999],['💐🌹',2999],['🐰',229],['🚚',99]];
+function drawGifts(){let h='';giftList.forEach((g,i)=>{h+=`<div class="gi" onclick="sendGift(${i})"><div style="font-size:26px">${g[0]}</div><div style="font-size:11px">${g[1]} 🪙</div></div>`});document.getElementById('giftGrid').innerHTML=h}
+drawGifts();
+function updateCoins(){document.getElementById('coinBal').innerText=coins;document.getElementById('coinBal2').innerText=coins}
+async function getMedia(){try{localStream = await navigator.mediaDevices.getUserMedia({video:true,audio:true});return localStream;}catch(e){alert('خاصك تسمح بالكاميرا والمايك'); throw e;}}
+function addVideo(id, stream, isMe=false){let v=document.createElement('video');v.id='v_'+id; v.autoplay=true; v.playsInline=true; v.muted=isMe; v.srcObject=stream;if(isMe) v.classList.add('me');document.getElementById('videos3').appendChild(v);}
+async function createLive(){myName=document.getElementById('userName').value||'مجهول'; roomId='live_'+Date.now(); await join(roomId,'live')}
+async function createRoom(){myName=document.getElementById('userName').value||'مجهول'; roomId='room15_'+Date.now(); await join(roomId,'room15')}
+async function join(id,type){roomId=id;await getMedia();document.getElementById('home').style.display='none';document.getElementById('livePage').classList.add('on');document.getElementById('liveTitle').innerText= type=='live'?'لايف 1-10 (3×3)':'غرفة 15 مايك';document.getElementById('videos3').innerHTML='';addVideo('me',localStream,true);socket.emit('join-room',{roomId, userName:myName, type});}
+function leave(){ socket.disconnect(); socket.connect();localStream?.getTracks().forEach(t=>t.stop());document.getElementById('livePage').classList.remove('on');document.getElementById('home').style.display='block';document.getElementById('videos3').innerHTML='';peers={};}
+socket.on('all-users', async (users)=>{for(let u of users){let pc=createPeer(u.id,false);peers[u.id]=pc;let offer=await pc.createOffer(); await pc.setLocalDescription(offer);socket.emit('signal',{to:u.id,from:socket.id,data:{offer}});}});
+socket.on('user-joined', ({id})=>{document.getElementById('viewCount').innerText=parseInt(document.getElementById('viewCount').innerText)+1;});
+socket.on('signal', async ({from,data})=>{if(data.offer){let pc=createPeer(from,true);peers[from]=pc;await pc.setRemoteDescription(data.offer);let answer=await pc.createAnswer(); await pc.setLocalDescription(answer);socket.emit('signal',{to:from,from:socket.id,data:{answer}});}if(data.answer){await peers[from]?.setRemoteDescription(data.answer);}if(data.ice){await peers[from]?.addIceCandidate(data.ice);}});
+function createPeer(id, isAnswerer){let pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});localStream.getTracks().forEach(t=>pc.addTrack(t,localStream));pc.onicecandidate=e=>{if(e.candidate) socket.emit('signal',{to:id,from:socket.id,data:{ice:e.candidate}})};pc.ontrack=e=>{ if(!document.getElementById('v_'+id)) addVideo(id,e.streams[0]); else document.getElementById('v_'+id).srcObject=e.streams[0]; };return pc;}
+socket.on('user-left', id=>{ document.getElementById('v_'+id)?.remove(); delete peers[id]; });
+function sendGift(i){let g=giftList[i]; if(coins<g[1]){alert('رصيدك ناقص - شحن Coins');return}coins-=g[1]; updateCoins(); closeGifts();socket.emit('send-gift',{roomId,gift:g,from:myName});showGift(g[0]);}
+socket.on('gift-received', ({gift,from})=>{document.getElementById('chat1').innerHTML+=`<div>🎁 ${from} أرسل ${gift[0]} (${gift[1]})</div>`;showGift(gift[0]);});
+function showGift(e){let a=document.createElement('div');a.className='anim';a.innerText=e;document.body.appendChild(a);setTimeout(()=>a.remove(),2000)}
+function openGifts(){document.getElementById('giftsPanel').classList.add('on')} function closeGifts(){document.getElementById('giftsPanel').classList.remove('on')}
+function sendChat(){let inp=document.getElementById('msg1'); if(!inp.value) return; socket.emit('chat-msg',{roomId,msg:inp.value,from:myName}); inp.value=''}
+socket.on('chat-msg', ({msg,from})=>{document.getElementById('chat1').innerHTML+=`<div><b>${from}:</b> ${msg}</div>`})
+function toggleMic(){isMic=!isMic; localStream.getAudioTracks().forEach(t=>t.enabled=isMic)}
+function toggleCam(){isCam=!isCam; localStream.getVideoTracks().forEach(t=>t.enabled=isCam)}
+let rl=document.getElementById('roomList'); for(let i=0;i<4;i++){ rl.innerHTML+=`<div class="card" onclick="roomId='demo${i}';myName=document.getElementById('userName').value||'Brahim';join(roomId,'live')"><div>🔴</div><b>غرفة ${i+1}</b><br><small>مباشر الآن</small></div>` }
+</script>
+</body>
+                            </html>
